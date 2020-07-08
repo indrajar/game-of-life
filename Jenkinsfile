@@ -10,22 +10,15 @@ pipeline {
     }
     stages {
         stage("myParallelStage"){
-            parellel{
+            parallel{
              stage('yumUpdate'){
                steps{
                 sh "sudo yum update -y"
                 sh "sudo yum install git -y"
               }
             }    
-        stage('createUser'){
-            steps{
-                   sh 'exitStatus= sudo cat /etc/passwd | grep "params.userName:"'
-               }
-                     when{
-                        exitStatus != 0
-                     }
-            steps{
-                sh "echo $exitStatus"
+                stage('createUser'){
+                steps{
                 sh "sudo useradd ${params.userName}"
                 sh 'echo "${params.userName}  ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers'
             }
