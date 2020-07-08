@@ -19,7 +19,7 @@ pipeline {
             }    
         stage('createUser'){
             
-                     }
+                     
             steps{
                 sh "sudo useradd ${params.userName}"
                 sh 'echo "${params.userName}  ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers'
